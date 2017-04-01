@@ -1,3 +1,5 @@
+package ua.ikrosh.ab;
+
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
@@ -12,7 +14,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
 import static org.openqa.selenium.OutputType.*;
 
-public class  {
+public class GroupCreationTests {
     FirefoxDriver wd;
     
     @BeforeMethod
