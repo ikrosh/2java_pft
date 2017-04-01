@@ -1,13 +1,13 @@
 package ua.ikrosh.ab.appmanager;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.WebDriver;
 import ua.ikrosh.ab.model.ContactData;
 
 public class ContactHelper {
-  FirefoxDriver wd;
+  WebDriver wd;
 
-  public ContactHelper(FirefoxDriver wd) {
+  public ContactHelper(WebDriver wd) {
     this.wd = wd;
   }
 
