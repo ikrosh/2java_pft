@@ -11,32 +11,33 @@ public class ContactHelper {
     this.wd = wd;
   }
 
+  //general
+  private void click(By locator) {
+    wd.findElement(locator).click();
+  }
+
   //creation
 
   public void submitContactCreation() {
-    wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
+    click(By.xpath("//div[@id='content']/form/input[21]"));
   }
 
   public void fillContactForm(ContactData contactData) {
-    wd.findElement(By.name("lastname")).click();
-    wd.findElement(By.name("lastname")).clear();
-    wd.findElement(By.name("lastname")).sendKeys(contactData.getLastname());
-    wd.findElement(By.name("firstname")).click();
-    wd.findElement(By.name("firstname")).clear();
-    wd.findElement(By.name("firstname")).sendKeys(contactData.getFirstname());
-    wd.findElement(By.name("address")).click();
-    wd.findElement(By.name("address")).clear();
-    wd.findElement(By.name("address")).sendKeys(contactData.getAddress());
-    wd.findElement(By.name("email")).click();
-    wd.findElement(By.name("email")).clear();
-    wd.findElement(By.name("email")).sendKeys(contactData.getEmail());
-    wd.findElement(By.name("home")).click();
-    wd.findElement(By.name("home")).clear();
-    wd.findElement(By.name("home")).sendKeys(contactData.getHomePhone());
+    type(By.name("lastname"), contactData.getLastname());
+    type(By.name("firstname"), contactData.getFirstname());
+    type(By.name("address"), contactData.getAddress());
+    type(By.name("email"), contactData.getEmail());
+    type(By.name("home"), contactData.getHomePhone());
+  }
+
+  private void type(By locator, String text) {
+    click(locator);
+    wd.findElement(locator).clear();
+    wd.findElement(locator).sendKeys(text);
   }
 
   public void initContactCreation() {
-    wd.findElement(By.linkText("add new")).click();
+    click(By.linkText("add new"));
   }
 
   //deletion
@@ -46,22 +47,22 @@ public class ContactHelper {
   }
 
   public void submitContactDeletion() {
-    wd.findElement(By.xpath("//div[@id='content']/form[2]/div[2]/input")).click();
+    click(By.xpath("//div[@id='content']/form[2]/div[2]/input"));
   }
 
   public void initContactDeletion() {
     if (!wd.findElement(By.name("selected[]")).isSelected()) {
-            wd.findElement(By.name("selected[]")).click();
-        }
+      click(By.name("selected[]"));
+    }
   }
 
   //modification
 
   public void submitContactModification() {
-    wd.findElement(By.xpath("//div[@id='content']/form[1]/input[22]")).click();
+    click(By.xpath("//div[@id='content']/form[1]/input[22]"));
   }
 
   public void initContactModification() {
-    wd.findElement(By.xpath("//table[@id='maintable']/tbody/tr[5]/td[8]/a/img")).click();
+    click(By.xpath("//table[@id='maintable']/tbody/tr[5]/td[8]/a/img"));
   }
 }
