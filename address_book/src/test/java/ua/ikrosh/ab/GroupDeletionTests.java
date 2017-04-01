@@ -33,6 +33,7 @@ public class GroupDeletionTests {
     @Test
     public void testGroupDeletion () {
 
+        gotoGroupPage();
         initGroupDeletion();
         submitGroupDeletion();
         returnToGroupPage();
@@ -50,7 +51,12 @@ public class GroupDeletionTests {
 
     private void submitGroupDeletion() {
         wd.findElement(By.name("delete")).click();
+
     }
+
+    private void gotoGroupPage() {
+    wd.findElement(By.linkText("groups")).click();
+  }
 
     @AfterMethod
     public void tearDown() {
