@@ -2,17 +2,17 @@ package ua.ikrosh.ab.appmanager;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.Select;
 import ua.ikrosh.ab.model.ContactData;
 
-public class ContactHelper {
-  WebDriver wd;
+public class ContactHelper extends HelperBase {
 
   public ContactHelper(WebDriver wd) {
-    this.wd = wd;
+    super(wd);
   }
 
   //general
-  private void click(By locator) {
+  public void click(By locator) {
     wd.findElement(locator).click();
   }
 
@@ -28,9 +28,12 @@ public class ContactHelper {
     type(By.name("address"), contactData.getAddress());
     type(By.name("email"), contactData.getEmail());
     type(By.name("home"), contactData.getHomePhone());
+    if (isElementPresent(By.name("new_grop"))) {
+      new Select(wd.findElement(By.name("new_grop"))).selectByVisibleText(contactData.getGroup());
+    }
   }
 
-  private void type(By locator, String text) {
+  public void type(By locator, String text) {
     click(locator);
     wd.findElement(locator).clear();
     wd.findElement(locator).sendKeys(text);
