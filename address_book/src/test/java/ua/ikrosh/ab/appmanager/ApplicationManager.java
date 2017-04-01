@@ -9,6 +9,8 @@ import ua.ikrosh.ab.model.GroupData;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+  FirefoxDriver wd;
+
   public static boolean isAlertPresent(FirefoxDriver wd) {
     try {
       wd.switchTo().alert();
@@ -92,7 +94,7 @@ public class ApplicationManager {
     wd.findElement(By.linkText("home")).click();
   }
 
-  protected void submitContactCreation() {
+  public void submitContactCreation() {
     wd.findElement(By.xpath("//div[@id='content']/form/input[21]")).click();
   }
 

@@ -20,7 +20,7 @@ public class TestBase {
   }
 
 
-  public ApplicationManager getApplicationManager() {
-    return app;
-  }
+  //public ApplicationManager getApplicationManager() {
+  //  return app;
+  //}
 }
