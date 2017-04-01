@@ -1,4 +1,4 @@
-package ua.ikrosh.ab;
+package ua.ikrosh.ab.model;
 
 public class GroupData {
   private final String name;
