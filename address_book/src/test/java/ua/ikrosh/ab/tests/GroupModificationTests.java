@@ -8,10 +8,10 @@ public class GroupModificationTests extends TestBase {
   @Test
   public void testGroupModification() {
 
-    app.gotoGroupPage();
-    app.initGroupModification();
-    app.fillGroupForm(new GroupData("test1", "header", "test3"));
-    app.submitGroupModification();
-    app.returnToGroupPage();
+    app.getNavigationHelper().gotoGroupPage();
+    app.getGroupHelper().initGroupModification();
+    app.getGroupHelper().fillGroupForm(new GroupData("test1", "header", "test3"));
+    app.getGroupHelper().submitGroupModification();
+    app.getNavigationHelper().returnToGroupPage();
   }
 }
