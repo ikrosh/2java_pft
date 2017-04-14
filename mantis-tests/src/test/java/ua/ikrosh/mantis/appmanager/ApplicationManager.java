@@ -40,6 +40,14 @@ public class ApplicationManager {
         wd.get(properties.getProperty("web.baseUrl"));
     }
 
+    public HttpSession newSession() {
+        return new HttpSession(this);
+    }
+
+    public String getProperty(String key) {
+        return properties.getProperty(key);
+    }
+
 
     public void stop() {
         wd.quit();
