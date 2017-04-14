@@ -5,6 +5,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
+import ua.ikrosh.mantis.tests.RegistrationTests;
 
 import java.io.File;
 import java.io.FileReader;
@@ -15,41 +16,58 @@ import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
 
-    private final Properties properties;
-    WebDriver wd;
+  private final Properties properties;
+  private WebDriver wd;
 
-    private String browser;
+  private String browser;
+  private RegistrationHelper registrationHelper;
 
-    public ApplicationManager(String browser) {
-        this.browser = browser;
-        properties = new Properties();
-    }
+  public ApplicationManager(String browser) {
+    this.browser = browser;
+    properties = new Properties();
+  }
 
-    public void init() throws IOException {
-        String target = System.getProperty("target", "local");
-        properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties",target))));
-        if(Objects.equals(browser, BrowserType.FIREFOX)){
-            wd = new FirefoxDriver();
-        } else if(Objects.equals(browser, BrowserType.CHROME)) {
-            wd = new ChromeDriver();
-        } else if(Objects.equals(browser, BrowserType.IE)) {
-            wd = new InternetExplorerDriver();
-        }
+  public void init() throws IOException {
+    String target = System.getProperty("target", "local");
+    properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
+  }
 
-        wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-        wd.get(properties.getProperty("web.baseUrl"));
-    }
+  public HttpSession newSession() {
+    return new HttpSession(this);
+  }
 
-    public HttpSession newSession() {
-        return new HttpSession(this);
-    }
+  public String getProperty(String key) {
+    return properties.getProperty(key);
+  }
 
-    public String getProperty(String key) {
-        return properties.getProperty(key);
+
+  public void stop() {
+    if (wd != null) {
+      wd.quit();
     }
 
 
-    public void stop() {
-        wd.quit();
+  }
+
+  public RegistrationHelper registration() {
+    if (registrationHelper == null) {
+      registrationHelper = new RegistrationHelper(this);
     }
+    return registrationHelper;
+  }
+
+  public WebDriver getDriver() {
+    if (wd == null) {
+      if (Objects.equals(browser, BrowserType.FIREFOX)) {
+        wd = new FirefoxDriver();
+      } else if (Objects.equals(browser, BrowserType.CHROME)) {
+        wd = new ChromeDriver();
+      } else if (Objects.equals(browser, BrowserType.IE)) {
+        wd = new InternetExplorerDriver();
+      }
+      wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
+      wd.get(properties.getProperty("web.baseUrl"));
+    }
+    return wd;
+  }
 }
