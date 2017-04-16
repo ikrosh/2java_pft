@@ -5,7 +5,6 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.BrowserType;
-import ua.ikrosh.mantis.tests.RegistrationTests;
 
 import java.io.File;
 import java.io.FileReader;
@@ -21,6 +20,7 @@ public class ApplicationManager {
 
   private String browser;
   private RegistrationHelper registrationHelper;
+  private FtpHelper ftp;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -32,6 +32,12 @@ public class ApplicationManager {
     properties.load(new FileReader(new File(String.format("src/test/resources/%s.properties", target))));
   }
 
+  public void stop() {
+    if (wd != null) {
+      wd.quit();
+    }
+  }
+
   public HttpSession newSession() {
     return new HttpSession(this);
   }
@@ -40,20 +46,18 @@ public class ApplicationManager {
     return properties.getProperty(key);
   }
 
-
-  public void stop() {
-    if (wd != null) {
-      wd.quit();
-    }
-
-
-  }
-
   public RegistrationHelper registration() {
     if (registrationHelper == null) {
       registrationHelper = new RegistrationHelper(this);
     }
     return registrationHelper;
+  }
+
+  public FtpHelper ftp() {
+    if (ftp == null) {
+      ftp = new FtpHelper(this);
+    }
+    return ftp;
   }
 
   public WebDriver getDriver() {
